@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        
+        <title>（緊急）BIND 9.xの脆弱性（過剰なCPU負荷の誘発）について（CVE-2023-4408）   - フルリゾルバー（キャッシュDNSサーバー）／権威DNSサーバーの双方が対象、     バージョンアップを強く推奨 -</title>
+
+        <link rel="stylesheet" type="text/css" media="screen" href="./css/sample.css" />
+
+        <!-- pixi.jsの本体の読み込み -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.0.1/pixi.min.js"></script>
+
+        <!-- アニメーション用のライブラリ(GSAP/TweenMax)の読み込み -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/plugins/PixiPlugin.min.js"></script>
+        <!-- 外部フォント読み込み用のライブラリの読み込み -->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+        <!-- 外部フォントの定義用css(sample.css等とまとめてしまっても問題ありません) -->
+        <link rel="stylesheet" type="text/css" media="screen" href="./css/font.css" />
+    </head>
+    <body>
+        <main id="app" style="position: absolute; top: 0px; left: 0px;">
+            <!-- ここにPixiの描画領域(Canvas)が入る -->
+        </main>
+        <div style="position: absolute; top: 0px; left: 0px;">
+            <pre>
+---------------------------------------------------------------------
+■（緊急）BIND 9.xの脆弱性（過剰なCPU負荷の誘発）について（CVE-2023-4408）
+    - フルリゾルバー（キャッシュDNSサーバー）／権威DNSサーバーの双方が対象、
+    バージョンアップを強く推奨 -
+
+                                株式会社日本レジストリサービス（JPRS）
+                                            初版作成 2024/02/14（Wed）
+---------------------------------------------------------------------
+▼概要
+
+    BIND 9.xにおける実装上の不具合により、namedに対する外部からの攻撃が
+    可能となる脆弱性が、開発元のISCから発表されました。本脆弱性により
+    namedにおいて過剰なCPU負荷が誘発され、結果としてサービスの停止や品質
+    低下などが発生する可能性があります。
+
+    本脆弱性はBIND 9.0.0以降のすべてのバージョンのBIND 9が対象となり、か
+    つ、フルリゾルバー（キャッシュDNSサーバー）及び権威DNSサーバーの双方
+    が対象となることから、対象が広範囲にわたっています。
+
+    該当するBIND 9のパッケージを利用しているユーザーは、各ディストリビュー
+    ションベンダーからリリースされる情報の収集やバージョンアップなど、適
+    切な対応を速やかに取ることを強く推奨します。
+
+▼詳細
+
+▽本脆弱性の概要
+
+    DNSの通信においてやりとりされるDNSメッセージ（問い合わせ・応答）は、
+    権威DNSサーバーやフルリゾルバーによって解析されます。
+
+    BIND 9.xのDNSメッセージを解析するコードには計算量が過度に多い部分が
+    存在しており、特別に作成されたDNSメッセージを送りつけることで、named
+    のCPU負荷を過剰に高められる可能性があります。
+
+    これを利用し、外部の攻撃者がnamedプロセスに本件を誘発するDNSメッセー
+    ジを送り続けることでCPU負荷を増大させ、過負荷に陥らせることにより、
+    namedを含むシステム全体のパフォーマンスの低下や停止が誘発される可能
+    性があります。
+
+    本脆弱性は権威DNSサーバーとフルリゾルバーの双方、及びDNS問い合わせと
+    応答の双方の取り扱いに影響します。
+
+▽対象となるバージョン
+
+    本脆弱性は、BIND 9.0.0以降のすべてのバージョンのBIND 9が該当します。
+
+    ・9.18系列：9.18.0-9.18.21
+    ・それ以外の系列：9.0.0-9.16.45
+
+    なお、ISCではBIND 9.11.37より前のバージョンにおいて、本脆弱性の評価を
+    実施していません。
+            </pre>
+        </div>
+    </body>
+    <script type="text/javascript" src="./js/sample.js"></script>
+</html>
